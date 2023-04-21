@@ -1,0 +1,22 @@
+<div class="container mt-2" *ngIf="authService.currentLoggedInUser">
+    <div class="input-group mb-3">
+        <input type="text" class="form-control pr-1" placeholder="Type a your question?"
+            aria-label="Recipient's username" aria-describedby="button-addon2" #question>
+        <button class="btn btn-outline-secondary" (click)="askQuestion(question)" type="button">Ask</button>
+    </div>
+</div>
+<div class="container mt-2">
+    <div class="card">
+        <h5 class="card-header">Previously asked questions</h5>
+        <div class="card-body">
+            <ul class="list-group" *ngFor="let question of questions">
+                <li class="list-group-item question" title="Answer this question" (click)="navigateToAnswer(question)">
+                    <div class="d-flex w-100 justify-content-between">
+                        <p class="mb-1">{{question.text}}</p>
+                        <small class="text-muted">~ {{ question.user.name }}</small>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+<div class="container">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">{{title}}</a>
+      <ul class="nav justify-content-end">
+        <li class="nav-item" *ngIf="authService.currentLoggedInUser">
+          <a class="nav-link disabled">Welcome {{authService.currentLoggedInUser.name}}!</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/" class="nav-link nav-link-clickable">Questions</a>
+        </li>
+        <li class="nav-item" *ngIf="!authService.currentLoggedInUser">
+          <a routerLink="/login" class="nav-link nav-link-clickable">Log In</a>
+        </li>
+        <li class="nav-item" *ngIf="!authService.currentLoggedInUser">
+          <a routerLink="/register" class="nav-link nav-link-clickable">Sign
+            Up</a>
+        </li>
+        <li class="nav-item" *ngIf="authService.currentLoggedInUser">
+          <a class="nav-link nav-link-clickable" (click)="logout()">Log Out</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,28 @@
+<div class="container mt-2">
+    <div class="card">
+        <h5 class="card-header">Question - {{currentQuestion.text}}</h5>
+        <div class="card-body">
+            <div class="form-floating" *ngIf="authService.currentLoggedInUser">
+                <textarea class="form-control mb-1" placeholder="Can you answer this?" id="floatingTextarea2"
+                    style="height: 100px" #answer></textarea>
+                <button (click)="addAnswer(answer)" class="btn btn-primary">Submit</button>
+                <hr>
+            </div>
+            <div *ngIf="answers.length > 0">
+                <h5 class="card-title mt-1">Answers</h5>
+                <ul class="list-group" *ngFor="let answer of answers">
+                    <li class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <p class="mb-1">{{answer.text}}</p>
+                            <small class="text-muted">~ {{ answer.user.name }}</small>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <ul class="list-group" *ngIf="answers.length === 0">
+                <li class="list-group-item">Nobody has answered this, Give it a try.</li>
+            </ul>
+            <a routerLink="/" class="btn btn-primary mt-2">Back to questions</a>
+        </div>
+    </div>
+</div>
