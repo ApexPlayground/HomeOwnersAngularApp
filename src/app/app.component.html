@@ -13,7 +13,7 @@
           <a routerLink="/login" class="nav-link nav-link-clickable">Log In</a>
         </li>
         <li class="nav-item" *ngIf="!authService.currentLoggedInUser">
-          <a routerLink="/register" class="nav-link nav-link-clickable">Sign
+          <a routerLink="/register/user" class="nav-link nav-link-clickable">Sign
             Up</a>
         </li>
         <li class="nav-item" *ngIf="authService.currentLoggedInUser">

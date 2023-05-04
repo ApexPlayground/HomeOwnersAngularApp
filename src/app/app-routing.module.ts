@@ -12,7 +12,7 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'register',
+    path: 'register/user',
     pathMatch: 'full',
     component: RegisterComponent
   },
@@ -21,6 +21,23 @@ const routes: Routes = [
     pathMatch: 'full',
     component: AnswersComponent
   },
+  /* TO DO
+  {
+    path: 'about',
+    pathMatch: 'full',
+    component: AboutComponent
+  },
+  {
+    path: 'contact',
+    pathMatch: 'full',
+    component: ContactComponent
+  },
+  {
+    path: 'register/pro',
+    pathMatch: 'full',
+    component: ProRegisterComponent
+  },
+  */
   {
     path: '',
     component: QuestionsComponent
