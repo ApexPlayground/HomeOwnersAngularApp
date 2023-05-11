@@ -100,7 +100,8 @@ export class DataService {
   upvoteAnswer(answerId: number) {
     const answer = this.answers.find((a) => a.id === answerId);
     if (answer) {
-      answer.upvote += 1;
+      answer.upvote = (answer.upvote || 0) + 1;
     }
   }
+
 }
