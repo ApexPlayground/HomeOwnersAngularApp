@@ -9,11 +9,11 @@ import { filterItems } from '../assets/search-function';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'The Question Answer App';
+  title = 'AskMe';
   user: any;
   searchTerm = "";
   items = ['How to ride a bike', 'How to play a guitar'];
-  filteredItems: string[] =[];
+  filteredItems: string[] = [];
 
   constructor(public authService: AuthService, private router: Router) { }
 
@@ -35,7 +35,7 @@ export class AppComponent implements OnInit {
     this.router.navigate(['/'])
   }
 
-  
+
 
 }
 
