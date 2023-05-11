@@ -47,6 +47,6 @@ export class AnswersComponent implements OnInit {
   }
 
   upvoteAnswer(id: number) {
-    this.dataService.upvoteAnswer(this.answers.id);
+    this.dataService.upvoteAnswer(id);
   }
 }
