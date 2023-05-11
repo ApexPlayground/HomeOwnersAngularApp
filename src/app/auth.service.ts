@@ -11,19 +11,22 @@ export class AuthService {
       id: 1,
       name: 'Jerry',
       email: 'j@j.com',
-      password: 'Test@123'
+      password: 'Test@123',
+      expert: true,
     },
     {
       id: 2,
       name: 'Tom',
       email: 't@t.com',
-      password: 'Test123'
+      password: 'Test123',
+      expert: false,
     },
     {
       id: 3,
       name: 'Sam',
       email: 's@s.com',
-      password: 'Test123'
+      password: 'Test123',
+      expert: false,
     }
   ]
 
@@ -50,7 +53,8 @@ export class AuthService {
       id: newUserId,
       name,
       email,
-      password
+      password,
+      expert: false,
     });
     return true;
   }

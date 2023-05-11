@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
+import { filterItems } from '../assets/search-function';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,9 @@ import { AuthService } from './auth.service';
 export class AppComponent implements OnInit {
   title = 'The Question Answer App';
   user: any;
+  searchTerm = "";
+  items = ['How to ride a bike', 'How to play a guitar'];
+  filteredItems: string[] =[];
 
   constructor(public authService: AuthService, private router: Router) { }
 
@@ -23,7 +27,6 @@ export class AppComponent implements OnInit {
         localStorage.removeItem(this.authService.userKey);
       }
     }
-
     this.user = this.authService.currentLoggedInUser;
   }
 
@@ -31,4 +34,8 @@ export class AppComponent implements OnInit {
     this.authService.logout();
     this.router.navigate(['/'])
   }
+
+  
+
 }
+
