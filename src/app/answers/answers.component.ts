@@ -7,15 +7,19 @@ import { DataService } from '../data.service';
 @Component({
   selector: 'app-answers',
   templateUrl: './answers.component.html',
-  styleUrls: ['./answers.component.css']
+  styleUrls: ['./answers.component.css'],
 })
 export class AnswersComponent implements OnInit {
   answers: any;
   currentQuestion: any;
-  constructor(private dataService: DataService, private route: ActivatedRoute, public authService: AuthService) { }
+  constructor(
+    private dataService: DataService,
+    private route: ActivatedRoute,
+    public authService: AuthService
+  ) {}
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params) => {
       const questionId = Number(params['id']);
       if (questionId) {
         this.currentQuestion = this.dataService.getQuestionById(questionId);
@@ -29,12 +33,20 @@ export class AnswersComponent implements OnInit {
       return;
     }
 
-    this.dataService.addAnswer(this.currentQuestion.id, answer.value, this.authService.currentLoggedInUser.id);
+    this.dataService.addAnswer(
+      this.currentQuestion.id,
+      answer.value,
+      this.authService.currentLoggedInUser.id
+    );
     this.getAnswersByQuestionId(this.currentQuestion.id);
     answer.value = '';
   }
 
   getAnswersByQuestionId(id: number) {
     this.answers = this.dataService.getAnswersById(id);
+  }
+
+  upvoteAnswer(id: number) {
+    this.dataService.upvoteAnswer(this.answers.id);
   }
 }
