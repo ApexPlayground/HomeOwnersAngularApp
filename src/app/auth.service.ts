@@ -40,6 +40,10 @@ export class AuthService {
     }
   }
 
+  get currentLoggedInAdmin(): any {
+    return this._logoggedUser.expert;
+  }
+
 
   constructor() { }
 

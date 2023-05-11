@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 import { DataService } from '../data.service';
 
@@ -16,8 +17,10 @@ export class AnswersComponent implements OnInit {
   constructor(
     private dataService: DataService,
     private route: ActivatedRoute,
-    public authService: AuthService
-  ) { }
+    public authService: AuthService,
+    private router: Router,
+  ) {}
+
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
@@ -49,6 +52,8 @@ export class AnswersComponent implements OnInit {
 
   upvoteAnswer(id: number) {
     this.dataService.upvoteAnswer(id);
+    this.router.navigate(['/']);
+    this.router.navigate([this.router.url]);
   }
 
 }
