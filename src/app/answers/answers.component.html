@@ -3,7 +3,7 @@
         <h5 class="card-header">Question - {{currentQuestion.text}}</h5>
         <div class="card-body">
             <div class="form-floating" *ngIf="authService.currentLoggedInUser">
-                <textarea class="form-control mb-1"  placeholder="Can you answer this?" id="floatingTextarea2" 
+                <textarea class="form-control mb-1" placeholder="Can you answer this?" id="floatingTextarea2"
                     style="height: 100px" #answer></textarea>
                 <button (click)="addAnswer(answer)" class="btn btn-primary">Submit</button>
                 <hr>
@@ -13,8 +13,15 @@
                 <ul class="list-group" *ngFor="let answer of answers">
                     <li class="list-group-item">
                         <div class="d-flex w-100 justify-content-between">
-                            <button (click)="upvoteAnswer(answer.id)" class="btn">Upvote</button>
-                            <p class="mb-1">{{answer.upvote}}</p>
+                            <div class="d-flex flex-column align-items-center">
+                                <button (click)="upvoteAnswer(answer.id)" class="btn btn-success mb-2">Upvote</button>
+                                <p class="mb-1">{{answer.upvote}}</p>
+                                <button (click)="downvoteAnswer(answer.id)"
+                                    class="btn btn-danger mt-2">Downvote</button>
+                                <p class="mb-1">{{answer.downvote}}</p>
+                            </div>
+
+
                             <p class="mb-1">{{answer.text}}</p>
                             <small class="text-muted">~ {{ answer.user.name }}</small>
                         </div>
@@ -28,3 +35,5 @@
         </div>
     </div>
 </div>
+
+<app-comments></app-comments>
