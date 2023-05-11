@@ -13,6 +13,8 @@
                 <ul class="list-group" *ngFor="let answer of answers">
                     <li class="list-group-item">
                         <div class="d-flex w-100 justify-content-between">
+                            <button ng-click="upvoteAnswer(answer.id)">Upvote</button>
+                            <p class="mb-1">{{answer.upvote}}</p>
                             <p class="mb-1">{{answer.text}}</p>
                             <small class="text-muted">~ {{ answer.user.name }}</small>
                         </div>
