@@ -33,4 +33,5 @@ export class QuestionsComponent implements OnInit {
     this.router.navigate(['/answers', 'question', question.id]);
   }
 
+
 }
