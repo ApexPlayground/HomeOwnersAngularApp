@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../auth.service';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 
 import { DataService } from '../data.service';
 
@@ -17,7 +17,7 @@ export class AnswersComponent implements OnInit {
     private dataService: DataService,
     private route: ActivatedRoute,
     public authService: AuthService,
-    private router: Router,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -50,7 +50,14 @@ export class AnswersComponent implements OnInit {
 
   upvoteAnswer(id: number) {
     this.dataService.upvoteAnswer(id);
-    this.router.navigate(['/']);
-    this.router.navigate([this.router.url]);
+    const navigationExtras: NavigationExtras = {
+      queryParams: { 'refresh': true }
+    };
+    // use the router to navigate to the current route with the navigation extras
+    this.router.navigate([], navigationExtras)
+      .then(() => {
+        // reload the data for the component after the navigation is complete
+        this.getAnswersByQuestionId(this.currentQuestion.id);
+      });
   }
 }
