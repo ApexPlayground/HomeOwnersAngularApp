@@ -97,11 +97,12 @@ export class DataService {
       });
   }
 
-  upvoteAnswer(answerId: number) {
-    const answer = this.answers.find((a) => a.id === answerId);
+  upvoteAnswer(id: number) {
+    const answer = this.answers.find((a) => a.id === id);
     if (answer) {
       answer.upvote = (answer.upvote || 0) + 1;
     }
   }
+
 
 }
