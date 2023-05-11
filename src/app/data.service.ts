@@ -43,7 +43,7 @@ export class DataService {
     },
   ];
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) { }
 
   getQuestionById(id: any) {
     const question: any = this.questions.find((question) => question.id === id);
@@ -98,10 +98,12 @@ export class DataService {
       });
   }
 
-  upvoteAnswer(answerId: number) {
-    const answer = this.answers.find((a) => a.id === answerId);
+  upvoteAnswer(id: number) {
+    const answer = this.answers.find((a) => a.id === id);
     if (answer) {
-      answer.upvote += 1;
-    }    
+      answer.upvote = (answer.upvote || 0) + 1;
+    }
   }
+
+
 }

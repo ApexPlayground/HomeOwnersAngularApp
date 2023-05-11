@@ -5,6 +5,7 @@ import { Router, NavigationExtras } from '@angular/router';
 
 import { DataService } from '../data.service';
 
+
 @Component({
   selector: 'app-answers',
   templateUrl: './answers.component.html',
@@ -19,6 +20,7 @@ export class AnswersComponent implements OnInit {
     public authService: AuthService,
     private router: Router
   ) {}
+
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
@@ -60,4 +62,5 @@ export class AnswersComponent implements OnInit {
         this.getAnswersByQuestionId(this.currentQuestion.id);
       });
   }
+
 }
