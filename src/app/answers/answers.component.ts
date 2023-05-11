@@ -37,4 +37,8 @@ export class AnswersComponent implements OnInit {
   getAnswersByQuestionId(id: number) {
     this.answers = this.dataService.getAnswersById(id);
   }
+
+  upvoteAnswer(id: number) {
+    this.answers.id.upvote += 1
+  }
 }
