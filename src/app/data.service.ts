@@ -42,7 +42,7 @@ export class DataService {
     },
   ];
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) { }
 
   getQuestionById(id: any) {
     const question: any = this.questions.find((question) => question.id === id);

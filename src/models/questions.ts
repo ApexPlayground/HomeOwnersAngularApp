@@ -1,48 +1,19 @@
-import mongoose, { Schema, Document, Model } from "mongoose";
+import mongoose, { Schema, Document } from 'mongoose';
 
-// Define an interface for a Question document
-interface QuestionDocument extends Document {
+export interface Question extends Document {
     text: string;
-    author: string;
-    createdAt: Date;
-    updatedAt: Date;
+    userId: number;
 }
 
-// Define an interface for the Question model
-interface QuestionModel extends Model<QuestionDocument> { }
-
-// Define the Question schema
-const QuestionSchema: Schema<QuestionDocument, QuestionModel> = new Schema({
+const questionSchema = new Schema<Question>({
     text: {
         type: String,
         required: true,
     },
-    author: {
-        type: String,
+    userId: {
+        type: Number,
         required: true,
     },
-    createdAt: {
-        type: Date,
-        default: Date.now,
-    },
-    updatedAt: {
-        type: Date,
-        default: Date.now,
-    },
 });
 
-// Define a pre-save hook to set the updatedAt field to the current date
-QuestionSchema.pre<QuestionDocument>("save", function (next) {
-    this.updatedAt = new Date();
-    next();
-});
-
-// Create the Question model using the schema
-const Question: Model<QuestionDocument> = mongoose.model<QuestionDocument, QuestionModel>(
-    "Question",
-    QuestionSchema
-);
-
-// Export the Question model
-export default Question;
-
+export default mongoose.model<Question>('Question', questionSchema);
