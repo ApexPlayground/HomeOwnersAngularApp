@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
+import { error } from 'console';
 
 @Injectable({
   providedIn: 'root',
@@ -101,6 +102,6 @@ export class DataService {
     const answer = this.answers.find((a) => a.id === answerId);
     if (answer) {
       answer.upvote += 1;
-    }
+    }    
   }
 }
