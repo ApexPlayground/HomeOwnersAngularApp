@@ -75,4 +75,18 @@ export class AnswersComponent implements OnInit {
       });
   }
 
+  deleteAnswer(id: number) {
+    this.dataService.deleteAnswer(id);
+    const navigationExtras: NavigationExtras = {
+      queryParams: { 'refresh': true }
+    };
+    // use the router to navigate to the current route with the navigation extras
+    this.router.navigate([], navigationExtras)
+      .then(() => {
+        // reload the data for the component after the navigation is complete
+        this.getAnswersByQuestionId(this.currentQuestion.id);
+      });
+
+  }
+
 }
