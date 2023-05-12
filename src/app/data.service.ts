@@ -166,6 +166,18 @@ export class DataService {
     }
   }
 
+  editAnswer(id: number) {
+
+  }
+
+  deleteAnswer(answerId: number): void {
+    const answerIndex = this.answers.findIndex((answer) => answer.id === answerId);
+    if (answerIndex !== -1) {
+      this.answers.splice(answerIndex, 1);
+    }
+  }
+
+
 
   addCommentToAnswer(answerId: number, comment: string, userId: number) {
     const answer = this.answers.find((answer) => answer.id === answerId);
