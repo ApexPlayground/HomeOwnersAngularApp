@@ -162,11 +162,9 @@ export class DataService {
   downvoteAnswer(id: number) {
     const answer = this.answers.find((a) => a.id === id);
     if (answer) {
-      answer.downvote = (answer.downvote || 0) - 1;
+      answer.upvote = (answer.upvote || 0) - 1;
     }
   }
-
-
 
   deleteAnswer(answerId: number): void {
     const answerIndex = this.answers.findIndex((answer) => answer.id === answerId);
