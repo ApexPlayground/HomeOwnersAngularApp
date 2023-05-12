@@ -18,15 +18,30 @@ export class DataService {
       id: 2,
       userId: 2,
     },
+    {
+      text: 'How to code a basic website using HTML and CSS?',
+      id: 3,
+      userId: 1,
+      },
+      {
+      text: 'What are the key differences between Python and Java, and when should you use each one?',
+      id: 4,
+      userId: 3,
+      },
+      {
+      text: 'How can you use Git to manage your code changes and collaborate with others?',
+      id: 5,
+      userId: 2,
+      }
   ];
 
   answers = [
     {
       id: 1,
       questionId: 1,
-      text: "To ride a bike, start by choosing a bike that fits you well. Find a safe, open area to practice, and put on a helmet for safety. Begin by straddling the bike and getting a feel for balance by lifting your feet off the ground. When you're ready, push off with one foot and start pedaling. Use your brakes to control your speed and gently lean and turn the handlebars to steer. Practice regularly to improve your skills and gradually increase your confidence. Enjoy the freedom and fun that riding a bike brings!",
+      text: "Practice balancing, pedaling, and steering. Wear a helmet for safety. With practice, you'll gain confidence and enjoy riding a bike.",
       userId: 3,
-      upvote: 0,
+      upvote: 5,
       downvote: 0,
       comments: [
         {
@@ -49,7 +64,7 @@ export class DataService {
       questionId: 1,
       text: 'Put your leg on the pedal and start riding',
       userId: 2,
-      upvote: 0,
+      upvote: -3,
       downvote: 0,
       comments: [
         {

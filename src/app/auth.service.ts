@@ -11,14 +11,14 @@ export class AuthService {
       id: 1,
       name: 'Jerry',
       email: 'j@j.com',
-      password: 'Test@123',
+      password: 'root',
       expert: true,
     },
     {
       id: 2,
       name: 'Tom',
       email: 't@t.com',
-      password: 'Test123',
+      password: 'test',
       expert: false,
     },
     {
@@ -33,17 +33,16 @@ export class AuthService {
   get currentLoggedInUser(): any {
     return this._logoggedUser;
   }
+  
+  get currentLoggedInAdmin(): any {
+    return this._logoggedUser.expert;
+  }
 
   set currentLoggedInUser(value: any) {
     if (value) {
       this._logoggedUser = value
     }
   }
-
-  get currentLoggedInAdmin(): any {
-    return this._logoggedUser.expert;
-  }
-
 
   constructor() { }
 
