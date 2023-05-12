@@ -4,19 +4,17 @@ import { DataService } from '../data.service';
 @Component({
   selector: 'app-comments',
   templateUrl: './comments.component.html',
-  styleUrls: ['./comments.component.css']
+  styleUrls: ['./comments.component.css'],
 })
 export class CommentsComponent implements OnInit {
   @Input() answerId: number = 0;
   comments: any[] = [];
 
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService) {}
 
   ngOnInit(): void {
     this.loadComments();
   }
-
-
 
   loadComments(): void {
     this.comments = this.dataService.getCommentsByAnswerId(this.answerId);
