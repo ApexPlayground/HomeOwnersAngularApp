@@ -166,9 +166,7 @@ export class DataService {
     }
   }
 
-  editAnswer(id: number) {
 
-  }
 
   deleteAnswer(answerId: number): void {
     const answerIndex = this.answers.findIndex((answer) => answer.id === answerId);
@@ -177,10 +175,19 @@ export class DataService {
     }
   }
 
+  editAnswer(id: number, newText: string): void {
+    const answer = this.answers.find((answer) => answer.id === id);
+    if (answer) {
+      answer.text = newText;
+    }
+  }
 
 
-  addCommentToAnswer(answerId: number, comment: string, userId: number) {
-    const answer = this.answers.find((answer) => answer.id === answerId);
+
+
+
+  addCommentToAnswer(id: number, comment: string, userId: number) {
+    const answer = this.answers.find((answer) => answer.id === id);
     if (answer) {
       const commentId = answer.comments.length + 1;
       const newComment = {
@@ -195,8 +202,8 @@ export class DataService {
     return null;
   }
 
-  getCommentsByAnswerId(answerId: number) {
-    const answer = this.answers.find((answer) => answer.id === answerId);
+  getCommentsByAnswerId(id: number) {
+    const answer = this.answers.find((answer) => answer.id === id);
     if (answer) {
       return answer.comments.map((comment: any) => {
         const user = this.authService.getUser(comment.userId);
