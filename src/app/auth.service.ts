@@ -50,6 +50,14 @@ export class AuthService {
     return this.users.find((user: any) => user.id === userId);
   }
 
+  getUserEquals(userId: number) {
+    if(this.users.userId == this.currentLoggedInUser){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
   addUser(name: string, email: string, password: string) {
     const newUserId = this.users.length + 1;
     this.users.push({

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { error } from 'console';
 
-
 @Injectable({
   providedIn: 'root',
 })
@@ -22,17 +21,17 @@ export class DataService {
       text: 'How to code a basic website using HTML and CSS?',
       id: 3,
       userId: 1,
-      },
-      {
+    },
+    {
       text: 'What are the key differences between Python and Java, and when should you use each one?',
       id: 4,
       userId: 3,
-      },
-      {
+    },
+    {
       text: 'How can you use Git to manage your code changes and collaborate with others?',
       id: 5,
       userId: 2,
-      }
+    },
   ];
 
   answers = [
@@ -48,14 +47,11 @@ export class DataService {
           id: 1,
           text: 'Great explanation!',
           userId: 4,
-
-
         },
         {
           id: 2,
           text: 'I have a question about braking, can you provide more details?',
           userId: 5,
-
         },
       ],
     },
@@ -71,13 +67,11 @@ export class DataService {
           id: 1,
           text: 'Great explanation!',
           userId: 4,
-
         },
         {
           id: 2,
           text: 'I have a question about braking, can you provide more details?',
           userId: 5,
-
         },
       ],
     },
@@ -93,21 +87,46 @@ export class DataService {
           id: 1,
           text: 'Great explanation!',
           userId: 4,
-
         },
         {
           id: 2,
           text: 'I have a question about braking, can you provide more details?',
           userId: 5,
-
         },
       ],
     },
+    {
+      id: 1,
+      questionId: 5,
+      text: 'Git allows you to track changes, collaborate with others, and easily revert to previous versions.',
+      userId: 3,
+      upvote: 10,
+      downvote: 0,
+      comments: [
+        {
+          id: 1,
+          text: 'Great explanation!',
+          userId: 4,
+        },
+        {
+          id: 2,
+          text: 'I have a question about braking, can you provide more details?',
+          userId: 5,
+        },
+      ],
+    },
+    {
+      id: 2,
+      questionId: 5,
+      text: 'Git is a powerful tool for version control, enabling you to work with others and manage complex projects.',
+      userId: 1,
+      upvote: 8,
+      downvote: 0,
+      comments: [],
+    },
   ];
 
-
-
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService) {}
 
   getQuestionById(id: any) {
     const question: any = this.questions.find((question) => question.id === id);
@@ -161,8 +180,7 @@ export class DataService {
         return {
           ...answer,
           user: this.authService.getUser(answer.userId),
-          comments: this.getCommentsByAnswerId(answer.id)
-
+          comments: this.getCommentsByAnswerId(answer.id),
         };
       });
   }
@@ -182,7 +200,9 @@ export class DataService {
   }
 
   deleteAnswer(answerId: number): void {
-    const answerIndex = this.answers.findIndex((answer) => answer.id === answerId);
+    const answerIndex = this.answers.findIndex(
+      (answer) => answer.id === answerId
+    );
     if (answerIndex !== -1) {
       this.answers.splice(answerIndex, 1);
     }
@@ -224,10 +244,4 @@ export class DataService {
     }
     return [];
   }
-
-
-
-
-
-
 }
