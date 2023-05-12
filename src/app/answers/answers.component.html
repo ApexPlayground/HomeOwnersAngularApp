@@ -14,12 +14,14 @@
                     <li class="list-group-item">
                         <div class="d-flex w-100 justify-content-between">
                             <div class="d-flex flex-column align-items-center">
-                                <button (click)="upvoteAnswer(answer.id)" class="btn btn-success mb-2">Upvote</button>
+                                <button *ngIf="authService.currentLoggedInUser" (click)="upvoteAnswer(answer.id)"
+                                    class="btn btn-success mb-2">Upvote</button>
                                 <p class="mb-1">{{answer.upvote}}</p>
-                                <button (click)="downvoteAnswer(answer.id)"
+                                <button *ngIf="authService.currentLoggedInUser" (click)="downvoteAnswer(answer.id)"
                                     class="btn btn-danger mt-2">Downvote</button>
                                 <p class="mb-1">{{answer.downvote}}</p>
                             </div>
+
 
 
                             <p class="mb-1">{{answer.text}}</p>

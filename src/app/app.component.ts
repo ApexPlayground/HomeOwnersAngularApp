@@ -11,7 +11,7 @@ import { filterItems } from '../assets/search-function';
 export class AppComponent implements OnInit {
   title = 'AskMe';
   user: any;
-  searchTerm = "";
+  searchTerm: string = "";
   items = ['How to ride a bike', 'How to play a guitar'];
   filteredItems: string[] = [];
 
@@ -34,6 +34,11 @@ export class AppComponent implements OnInit {
     this.authService.logout();
     this.router.navigate(['/'])
   }
+
+  searchItems() {
+    this.filteredItems = filterItems(this.items, this.searchTerm);
+  }
+
 
 
 
