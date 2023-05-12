@@ -4,6 +4,7 @@ import { AuthService } from '../auth.service';
 import { Router, NavigationExtras } from '@angular/router';
 
 import { DataService } from '../data.service';
+import { Answer } from 'src/models/answers';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class AnswersComponent implements OnInit {
     private route: ActivatedRoute,
     public authService: AuthService,
     private router: Router
-  ) {}
+  ) { }
 
 
   ngOnInit() {
@@ -62,5 +63,56 @@ export class AnswersComponent implements OnInit {
         this.getAnswersByQuestionId(this.currentQuestion.id);
       });
   }
+  downvoteAnswer(id: number) {
+    this.dataService.downvoteAnswer(id);
+    const navigationExtras: NavigationExtras = {
+      queryParams: { 'refresh': true }
+    };
+    // use the router to navigate to the current route with the navigation extras
+    this.router.navigate([], navigationExtras)
+      .then(() => {
+        // reload the data for the component after the navigation is complete
+        this.getAnswersByQuestionId(this.currentQuestion.id);
+      });
+  }
+
+  deleteAnswer(id: number) {
+    this.dataService.deleteAnswer(id);
+    const navigationExtras: NavigationExtras = {
+      queryParams: { 'refresh': true }
+    };
+    // use the router to navigate to the current route with the navigation extras
+    this.router.navigate([], navigationExtras)
+      .then(() => {
+        // reload the data for the component after the navigation is complete
+        this.getAnswersByQuestionId(this.currentQuestion.id);
+      });
+
+  }
+  newText: string = '';
+
+  editAnswer(id: number, newText: string): void {
+    const answer = this.answers.find((answer: Answer) => answer.id === id);
+    if (answer) {
+      const newText = prompt('Enter the new answer text:', answer.text);
+      if (newText !== null) {
+        this.dataService.editAnswer(id, newText);
+        const navigationExtras: NavigationExtras = {
+          queryParams: { 'refresh': true }
+        };
+        // use the router to navigate to the current route with the navigation extras
+        this.router.navigate([], navigationExtras)
+          .then(() => {
+            // reload the data for the component after the navigation is complete
+            this.getAnswersByQuestionId(this.currentQuestion.id);
+          });
+      }
+    }
+  }
+
+  editedAnswerId: number | null = null;
+
+
+
 
 }

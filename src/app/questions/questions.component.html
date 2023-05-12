@@ -1,10 +1,11 @@
 <div class="container mt-2" *ngIf="authService.currentLoggedInUser">
     <div class="input-group mb-3">
-        <input type="text" class="form-control pr-1" placeholder="Type a your question?"
-            aria-label="Recipient's username" aria-describedby="button-addon2" #question>
+        <input type="text" class="form-control pr-1" placeholder="Type your question?" aria-label="Recipient's username"
+            aria-describedby="button-addon2" #question>
         <button class="btn btn-outline-secondary" (click)="askQuestion(question)" type="button">Ask</button>
     </div>
 </div>
+
 <div class="container mt-2">
     <div class="card">
         <h5 class="card-header">Previously asked questions</h5>
