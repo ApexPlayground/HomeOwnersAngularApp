@@ -5,7 +5,7 @@ import { Router, NavigationExtras } from '@angular/router';
 
 import { DataService } from '../data.service';
 import { Answer } from 'src/models/answers';
-
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-answers',
@@ -20,8 +20,7 @@ export class AnswersComponent implements OnInit {
     private route: ActivatedRoute,
     public authService: AuthService,
     private router: Router
-  ) { }
-
+  ) {}
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
@@ -54,65 +53,65 @@ export class AnswersComponent implements OnInit {
   upvoteAnswer(id: number) {
     this.dataService.upvoteAnswer(id);
     const navigationExtras: NavigationExtras = {
-      queryParams: { 'refresh': true }
+      queryParams: { refresh: true },
     };
     // use the router to navigate to the current route with the navigation extras
-    this.router.navigate([], navigationExtras)
-      .then(() => {
-        // reload the data for the component after the navigation is complete
-        this.getAnswersByQuestionId(this.currentQuestion.id);
-      });
+    this.router.navigate([], navigationExtras).then(() => {
+      // reload the data for the component after the navigation is complete
+      this.getAnswersByQuestionId(this.currentQuestion.id);
+    });
   }
   downvoteAnswer(id: number) {
     this.dataService.downvoteAnswer(id);
     const navigationExtras: NavigationExtras = {
-      queryParams: { 'refresh': true }
+      queryParams: { refresh: true },
     };
     // use the router to navigate to the current route with the navigation extras
-    this.router.navigate([], navigationExtras)
-      .then(() => {
-        // reload the data for the component after the navigation is complete
-        this.getAnswersByQuestionId(this.currentQuestion.id);
-      });
+    this.router.navigate([], navigationExtras).then(() => {
+      // reload the data for the component after the navigation is complete
+      this.getAnswersByQuestionId(this.currentQuestion.id);
+    });
   }
 
   deleteAnswer(id: number) {
     this.dataService.deleteAnswer(id);
     const navigationExtras: NavigationExtras = {
-      queryParams: { 'refresh': true }
+      queryParams: { refresh: true },
     };
     // use the router to navigate to the current route with the navigation extras
-    this.router.navigate([], navigationExtras)
-      .then(() => {
-        // reload the data for the component after the navigation is complete
-        this.getAnswersByQuestionId(this.currentQuestion.id);
-      });
-
+    this.router.navigate([], navigationExtras).then(() => {
+      // reload the data for the component after the navigation is complete
+      this.getAnswersByQuestionId(this.currentQuestion.id);
+    });
   }
   newText: string = '';
 
   editAnswer(id: number, newText: string): void {
     const answer = this.answers.find((answer: Answer) => answer.id === id);
     if (answer) {
-      const newText = prompt('Enter the new answer text:', answer.text);
-      if (newText !== null) {
-        this.dataService.editAnswer(id, newText);
-        const navigationExtras: NavigationExtras = {
-          queryParams: { 'refresh': true }
-        };
-        // use the router to navigate to the current route with the navigation extras
-        this.router.navigate([], navigationExtras)
-          .then(() => {
+      Swal.fire({
+        title: 'Enter the new answer text:',
+        input: 'text',
+        inputValue: answer.text,
+        showCancelButton: true,
+        confirmButtonText: 'Save',
+        cancelButtonText: 'Cancel',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const newText = result.value;
+          this.dataService.editAnswer(id, newText);
+          const navigationExtras: NavigationExtras = {
+            queryParams: { refresh: true },
+          };
+          // use the router to navigate to the current route with the navigation extras
+          this.router.navigate([], navigationExtras).then(() => {
             // reload the data for the component after the navigation is complete
             this.getAnswersByQuestionId(this.currentQuestion.id);
           });
-      }
+        }
+      });
     }
   }
 
   editedAnswerId: number | null = null;
-
-
-
-
 }

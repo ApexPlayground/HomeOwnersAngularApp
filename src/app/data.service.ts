@@ -14,7 +14,7 @@ export class DataService {
       userId: 1,
     },
     {
-      text: 'How to play a guiter?',
+      text: 'How to play a guitar?',
       id: 2,
       userId: 2,
     },
@@ -179,10 +179,6 @@ export class DataService {
       answer.text = newText;
     }
   }
-
-
-
-
 
   addCommentToAnswer(id: number, comment: string, userId: number) {
     const answer = this.answers.find((answer) => answer.id === id);
