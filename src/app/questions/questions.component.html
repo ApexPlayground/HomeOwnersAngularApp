@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 <div class="container mt-2" *ngIf="authService.currentLoggedInUser">
     <div class="input-group mb-3">
         <input type="text" class="form-control pr-1" placeholder="Type your question?" aria-label="Recipient's username"
@@ -15,6 +16,14 @@
                     <div class="d-flex w-100 justify-content-between">
                         <p class="mb-1">{{question.text}}</p>
                         <small class="text-muted">~ {{ question.user.name }}</small>
+                        <div class="d-flex align-items-center">
+                            <button class="btn btn-primary mx-1" (click)="editQuestion(questions.id, newText)">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-danger mx-1" (click)="deleteQuestion(questions.id)">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
                     </div>
                 </li>
             </ul>

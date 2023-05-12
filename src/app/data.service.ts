@@ -168,8 +168,8 @@ export class DataService {
 
 
 
-  deleteAnswer(answerId: number): void {
-    const answerIndex = this.answers.findIndex((answer) => answer.id === answerId);
+  deleteAnswer(id: number): void {
+    const answerIndex = this.answers.findIndex((answer) => answer.id === id);
     if (answerIndex !== -1) {
       this.answers.splice(answerIndex, 1);
     }
@@ -179,6 +179,20 @@ export class DataService {
     const answer = this.answers.find((answer) => answer.id === id);
     if (answer) {
       answer.text = newText;
+    }
+  }
+
+  deleteQuestion(id: any): void {
+    const questions = this.questions.findIndex((questions) => questions.id === id);
+    if (questions !== -1) {
+      this.answers.splice(questions, 1);
+    }
+  }
+
+  editQuestion(id: any, newText: string): void {
+    const questions = this.questions.find((questions) => questions.id === id);
+    if (questions) {
+      questions.text = newText;
     }
   }
 
