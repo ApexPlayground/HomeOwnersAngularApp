@@ -6,6 +6,8 @@ import { NavigationExtras } from '@angular/router';
 import { DataService } from '../data.service';
 import { Question } from 'src/models/questions';
 
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-questions',
   templateUrl: './questions.component.html',
@@ -36,41 +38,39 @@ export class QuestionsComponent implements OnInit {
   }
 
   deleteQuestion(id: any) {
-    this.dataService.deleteQuestion(id);
-    const navigationExtras: NavigationExtras = {
-      queryParams: { 'refresh': true }
-    };
-    // use the router to navigate to the current route with the navigation extras
-    this.router.navigate([], navigationExtras)
-      .then(() => {
-        // reload the data for the component after the navigation is complete
-        // this.dataService
-        // this.getQuestionById(this.currentQuestion.id);
-      });
-
-  }
-  newText: string = '';
-
-  editQuestion(id: any, newText: string): void {
-    const questions = this.questions.find((questions: Question) => questions.id === id);
-    if (questions) {
-      const newText = prompt('Enter the new answer text:', questions.text);
-      if (newText !== null) {
-        this.dataService.editAnswer(id, newText);
-        const navigationExtras: NavigationExtras = {
-          queryParams: { 'refresh': true }
-        };
-        // use the router to navigate to the current route with the navigation extras
-        this.router.navigate([], navigationExtras)
-          .then(() => {
-            // reload the data for the component after the navigation is complete
-            // this.getAnswersByQuestionId(this.currentQuestion.id);
-          });
-      }
+    const questionIndex = this.questions.findIndex((q: Question) => q.id === id);
+    if (questionIndex !== -1) {
+      this.questions.splice(questionIndex, 1);
+      this.dataService.deleteQuestion(id);
+      this.router.navigate([], { queryParams: { refresh: true } });
     }
   }
 
-  editedAnswerId: number | null = null;
+  newText: string = '';
 
+  editQuestion(id: any, newText: string) {
+    const questionIndex = this.questions.findIndex((q: Question) => q.id === id);
+    if (questionIndex !== -1) {
+      const question = this.questions[questionIndex];
+      Swal.fire({
+        title: 'Edit Question',
+        input: 'text',
+        inputValue: question.text,
+        showCancelButton: true,
+        confirmButtonText: 'Save',
+        cancelButtonText: 'Cancel',
+      }).then((result) => {
+        if (result.isConfirmed && result.value !== '') {
+          const newQuestionText = result.value;
+          this.questions[questionIndex].text = newQuestionText;
+          this.dataService.editQuestion(id, newQuestionText);
+          this.router.navigate([], { queryParams: { refresh: true } });
+        }
+      });
+    }
+    this.editedQuestionId = null; // Reset the editedQuestionId
+  }
 
-}
+  editedQuestionId: number | null = null;
+
+}  

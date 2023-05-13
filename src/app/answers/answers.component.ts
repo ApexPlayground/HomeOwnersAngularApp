@@ -20,7 +20,7 @@ export class AnswersComponent implements OnInit {
     private route: ActivatedRoute,
     public authService: AuthService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
@@ -31,6 +31,7 @@ export class AnswersComponent implements OnInit {
       }
     });
   }
+  userVotes: number[] = [];
 
   addAnswer(answer: HTMLTextAreaElement) {
     if (!answer.value) {

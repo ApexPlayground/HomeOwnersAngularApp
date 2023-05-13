@@ -17,10 +17,12 @@
                         <p class="mb-1">{{question.text}}</p>
                         <small class="text-muted">~ {{ question.user.name }}</small>
                         <div class="d-flex align-items-center">
-                            <button class="btn btn-primary mx-1" (click)="editQuestion(questions.id, newText)">
+                            <button class="btn btn-primary mx-1"
+                                (click)="editQuestion(question.id, newText); $event.stopPropagation()">
                                 <i class="fas fa-edit"></i>
                             </button>
-                            <button class="btn btn-danger mx-1" (click)="deleteQuestion(questions.id)">
+                            <button class="btn btn-danger mx-1"
+                                (click)="deleteQuestion(question.id); $event.stopPropagation()">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </div>

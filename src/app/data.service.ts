@@ -40,7 +40,7 @@ export class DataService {
       questionId: 1,
       text: "Practice balancing, pedaling, and steering. Wear a helmet for safety. With practice, you'll gain confidence and enjoy riding a bike.",
       userId: 3,
-      upvote: 5,
+      upvote: 10,
       downvote: 0,
       comments: [
         {
@@ -60,7 +60,7 @@ export class DataService {
       questionId: 1,
       text: 'Put your leg on the pedal and start riding',
       userId: 2,
-      upvote: -3,
+      upvote: 2,
       downvote: 0,
       comments: [
         {
@@ -185,19 +185,51 @@ export class DataService {
       });
   }
 
+  votedAnswers: Set<number> = new Set<number>(); // Set to track voted answer IDs
+
   upvoteAnswer(id: number) {
     const answer = this.answers.find((a) => a.id === id);
     if (answer) {
-      answer.upvote = (answer.upvote || 0) + 1;
+      if (this.votedAnswers.has(id)) {
+        answer.upvote = Math.max(answer.upvote - 1, 0); // Toggle downvote
+        this.votedAnswers.delete(id);
+      } else {
+        if (answer.upvote === -1) {
+          answer.upvote = 1; // Remove previous downvote and toggle upvote
+          answer.downvote = 0;
+        } else {
+          answer.upvote += 1; // Toggle upvote
+          answer.downvote = Math.max(answer.downvote - 1, 0); // Remove downvote if any
+        }
+        this.votedAnswers.delete(id); // Remove any previous downvote from votedAnswers set
+        this.votedAnswers.add(id); // Add the ID to votedAnswers set
+      }
     }
   }
 
   downvoteAnswer(id: number) {
     const answer = this.answers.find((a) => a.id === id);
     if (answer) {
-      answer.upvote = (answer.upvote || 0) - 1;
+      if (this.votedAnswers.has(id)) {
+        answer.upvote += 1; // Toggle upvote
+        answer.downvote = Math.max(answer.downvote - 1, 0); // Remove downvote if any
+        this.votedAnswers.delete(id);
+      } else {
+        if (answer.upvote === 1) {
+          answer.upvote = 0; // Toggle downvote
+          answer.downvote = 1;
+        } else {
+          answer.upvote -= 1; // Toggle downvote
+          answer.downvote = Math.max(answer.downvote + 1, 0); // Remove upvote if any
+        }
+        this.votedAnswers.delete(id); // Remove any previous upvote from votedAnswers set
+        this.votedAnswers.add(id); // Add the ID to votedAnswers set
+      }
     }
   }
+
+
+
 
 
 
@@ -216,18 +248,19 @@ export class DataService {
   }
 
   deleteQuestion(id: any): void {
-    const questions = this.questions.findIndex((questions) => questions.id === id);
-    if (questions !== -1) {
-      this.answers.splice(questions, 1);
+    const index = this.questions.findIndex(question => question.id === id);
+    if (index !== -1) {
+      this.questions.splice(index, 1);
     }
   }
 
   editQuestion(id: any, newText: string): void {
-    const questions = this.questions.find((questions) => questions.id === id);
-    if (questions) {
-      questions.text = newText;
+    const question = this.questions.find(question => question.id === id);
+    if (question) {
+      question.text = newText;
     }
   }
+
 
 
 
