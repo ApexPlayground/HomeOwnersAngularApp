@@ -27,7 +27,8 @@
     <!-- SEARCH BAR -->
     <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchTerm" (keyup)="searchItems()">
     <ul>
-        <li *ngFor="let item of filteredItems">{{ item }}</li>
+        <li *ngFor="let item of filteredItems; let i = index" (click)="navigateToAnswerId(i+1)" class="list-group-item question"
+        title="Answer this question"> {{ item }}</li>
       </ul>
     <h5 class="card-header">Previously asked questions</h5>
     <div class="card-body">
