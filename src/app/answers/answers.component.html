@@ -5,7 +5,7 @@
     <h5 class="card-header">Question - {{ currentQuestion.text }}</h5>
     <div class="card-body">
       <div class="form-floating" *ngIf="authService.currentLoggedInUser">
-        <span *ngIf="authService.currentLoggedInAdmin">
+        <span *ngIf="authService.currentLoggedInExpert">
           <textarea class="form-control mb-1" placeholder="Can you answer this?" id="floatingTextarea2"
             style="height: 100px" #answer></textarea>
           <button (click)="addAnswer(answer)" class="btn btn-primary">
