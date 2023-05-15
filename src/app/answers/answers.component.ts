@@ -20,7 +20,7 @@ export class AnswersComponent implements OnInit {
     private route: ActivatedRoute,
     public authService: AuthService,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
