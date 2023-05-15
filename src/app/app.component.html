@@ -4,9 +4,6 @@
       <a class="navbar-brand" href="#">{{title}}</a>
       <ul class="nav justify-content-end">
         <li class="nav-item">
-          <form>
-            <input type="text" [(ngModel)]="searchTerm" class="form-control" placeholder="Search...">
-          </form>
         </li>
         <li class="nav-item" *ngIf="authService.currentLoggedInUser">
           <a class="nav-link disabled">Welcome {{authService.currentLoggedInUser.name}}<span
