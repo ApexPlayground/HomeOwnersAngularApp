@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-comments',
@@ -10,7 +11,10 @@ export class CommentsComponent implements OnInit {
   comments: string[] = []; // Array to store comments
   newComment: string = ''; // Variable to store the new comment input
 
-  constructor() { }
+
+  constructor(public authService: AuthService) {
+
+  }
 
   ngOnInit(): void {
     // Initialize the component
