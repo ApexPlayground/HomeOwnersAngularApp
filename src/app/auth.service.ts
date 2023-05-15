@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class AuthService {
-  _logoggedUser: any;
+  _loggedInUser: any;
   userKey: string = 'User';
   users: any = [
     {
@@ -39,23 +39,22 @@ export class AuthService {
       isAdminUser: true,
       expert: true
     }
-  ]
+  ];
 
   get currentLoggedInUser(): any {
-    return this._logoggedUser;
+    return this._loggedInUser;
   }
 
   get currentLoggedInExpert(): any {
-    return this._logoggedUser.expert;
+    return this._loggedInUser ? this._loggedInUser.expert : false;
   }
+
   get currentLoggedInAdmin(): any {
-    return this._logoggedUser.isAdminUser;
+    return this._loggedInUser ? this._loggedInUser.isAdminUser : false;
   }
 
   set currentLoggedInUser(value: any) {
-    if (value) {
-      this._logoggedUser = value
-    }
+    this._loggedInUser = value;
   }
 
   constructor() { }
@@ -65,11 +64,7 @@ export class AuthService {
   }
 
   getUserEquals(userId: number) {
-    if (this.users.userId == this.currentLoggedInUser) {
-      return true;
-    } else {
-      return false;
-    }
+    return this.currentLoggedInUser && this.currentLoggedInUser.id === userId;
   }
 
   addUser(name: string, email: string, password: string) {
@@ -79,19 +74,22 @@ export class AuthService {
       name,
       email,
       password,
-      expert: false,
+      expert: false
     });
     return true;
   }
 
   login(email: string, password: string) {
-    const user = this.users.find((user: any) => user.email === email && user.password === password);
+    const user = this.users.find(
+      (user: any) => user.email === email && user.password === password
+    );
     localStorage.setItem(this.userKey, JSON.stringify(user));
+    this.currentLoggedInUser = user;
     return user;
   }
 
   logout() {
-    this._logoggedUser = undefined;
+    this.currentLoggedInUser = undefined;
     localStorage.removeItem(this.userKey);
   }
 }
