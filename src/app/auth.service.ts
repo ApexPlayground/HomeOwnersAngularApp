@@ -13,6 +13,7 @@ export class AuthService {
       email: 'j@j.com',
       password: 'root',
       expert: true,
+      isAdminUser: false
     },
     {
       id: 2,
@@ -20,6 +21,7 @@ export class AuthService {
       email: 't@t.com',
       password: 'test',
       expert: false,
+      isAdminUser: false
     },
     {
       id: 3,
@@ -27,15 +29,27 @@ export class AuthService {
       email: 's@s.com',
       password: 'Test123',
       expert: false,
+      isAdminUser: false
+    },
+    {
+      id: 4,
+      name: 'div',
+      email: 'a@a.com',
+      password: 'admin',
+      expert: true,
+      isAdminUser: true
     }
   ]
 
   get currentLoggedInUser(): any {
     return this._logoggedUser;
   }
-  
-  get currentLoggedInAdmin(): any {
+
+  get currentLoggedInExpert(): any {
     return this._logoggedUser.expert;
+  }
+  get currentLoggedInAdmin(): any {
+    return this._logoggedUser.isAdminUser;
   }
 
   set currentLoggedInUser(value: any) {
@@ -51,9 +65,9 @@ export class AuthService {
   }
 
   getUserEquals(userId: number) {
-    if(this.users.userId == this.currentLoggedInUser){
+    if (this.users.userId == this.currentLoggedInUser) {
       return true;
-    }else{
+    } else {
       return false;
     }
   }

@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { CommentsComponent } from './comments/comments.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,6 +21,7 @@ import { CommentsComponent } from './comments/comments.component';
     LoginComponent,
     RegisterComponent,
     CommentsComponent,
+
 
   ],
   imports: [

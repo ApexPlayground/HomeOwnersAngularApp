@@ -42,18 +42,8 @@ export class DataService {
       userId: 3,
       upvote: 10,
       downvote: 0,
-      comments: [
-        {
-          id: 1,
-          text: 'Great explanation!',
-          userId: 4,
-        },
-        {
-          id: 2,
-          text: 'I have a question about braking, can you provide more details?',
-          userId: 5,
-        },
-      ],
+      comments: []
+
     },
     {
       id: 2,
@@ -62,18 +52,8 @@ export class DataService {
       userId: 2,
       upvote: 2,
       downvote: 0,
-      comments: [
-        {
-          id: 1,
-          text: 'Great explanation!',
-          userId: 4,
-        },
-        {
-          id: 2,
-          text: 'I have a question about braking, can you provide more details?',
-          userId: 5,
-        },
-      ],
+      comments: []
+
     },
     {
       id: 3,
@@ -102,18 +82,8 @@ export class DataService {
       userId: 3,
       upvote: 10,
       downvote: 0,
-      comments: [
-        {
-          id: 1,
-          text: 'Great explanation!',
-          userId: 4,
-        },
-        {
-          id: 2,
-          text: 'I have a question about braking, can you provide more details?',
-          userId: 5,
-        },
-      ],
+      comments: []
+
     },
     {
       id: 2,
@@ -180,7 +150,7 @@ export class DataService {
         return {
           ...answer,
           user: this.authService.getUser(answer.userId),
-          comments: this.getCommentsByAnswerId(answer.id),
+
         };
       });
   }
@@ -231,8 +201,6 @@ export class DataService {
 
 
 
-
-
   deleteAnswer(id: number): void {
     const answerIndex = this.answers.findIndex((answer) => answer.id === id);
     if (answerIndex !== -1) {
@@ -261,38 +229,48 @@ export class DataService {
     }
   }
 
+  addComment(answerId: number, commentText: string, userId: number) {
+    const commentId = this.generateCommentId();
+    const comment = {
+      id: commentId,
+      text: commentText,
+      userId: userId,
+    };
 
-
-
-
-
-  addCommentToAnswer(id: number, comment: string, userId: number) {
-    const answer = this.answers.find((answer) => answer.id === id);
+    const answer = this.answers.find((a) => a.id === answerId);
     if (answer) {
-      const commentId = answer.comments.length + 1;
-      const newComment = {
-        id: commentId,
-        text: comment,
-        userId,
-        upvote: 0,
-      };
-      answer.comments.push(newComment);
-      return newComment;
+      if (!answer.comments) {
+        answer.comments = [];
+      }
+      answer.comments.push(comment);
     }
-    return null;
+
+    return true;
   }
 
-  getCommentsByAnswerId(id: number) {
-    const answer = this.answers.find((answer) => answer.id === id);
-    if (answer) {
-      return answer.comments.map((comment: any) => {
-        const user = this.authService.getUser(comment.userId);
-        return {
-          ...comment,
-          user,
-        };
-      });
+  deleteComment(answerId: number, commentId: number) {
+    const answer = this.answers.find((a) => a.id === answerId);
+    if (answer && answer.comments) {
+      const commentIndex = answer.comments.findIndex((c) => c.id === commentId);
+      if (commentIndex !== -1) {
+        answer.comments.splice(commentIndex, 1);
+      }
     }
-    return [];
   }
+
+  private generateCommentId(): number {
+    // Find the maximum comment ID and add 1
+    let maxCommentId = 0;
+    this.answers.forEach((answer) => {
+      if (answer.comments) {
+        answer.comments.forEach((comment) => {
+          if (comment.id > maxCommentId) {
+            maxCommentId = comment.id;
+          }
+        });
+      }
+    });
+    return maxCommentId + 1;
+  }
+
 }
