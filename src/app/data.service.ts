@@ -6,6 +6,7 @@ import { error } from 'console';
   providedIn: 'root',
 })
 export class DataService {
+  //added somes questions and answer to fill up the app
   questions = [
     {
       text: 'How to ride a bike?',
@@ -42,8 +43,7 @@ export class DataService {
       userId: 3,
       upvote: 10,
       downvote: 0,
-      comments: []
-
+      comments: [],
     },
     {
       id: 2,
@@ -52,8 +52,7 @@ export class DataService {
       userId: 2,
       upvote: 2,
       downvote: 0,
-      comments: []
-
+      comments: [],
     },
     {
       id: 3,
@@ -76,26 +75,7 @@ export class DataService {
       ],
     },
     {
-      id: 1,
-      questionId: 5,
-      text: 'Git allows you to track changes, collaborate with others, and easily revert to previous versions.',
-      userId: 3,
-      upvote: 10,
-      downvote: 0,
-      comments: []
-
-    },
-    {
-      id: 2,
-      questionId: 5,
-      text: 'Git is a powerful tool for version control, enabling you to work with others and manage complex projects.',
-      userId: 1,
-      upvote: 8,
-      downvote: 0,
-      comments: [],
-    },
-    {
-      id: 2,
+      id: 4,
       questionId: 3,
       text: 'To code a basic website using HTML and CSS, you first need to learn the basics of HTML and CSS. HTML provides the structure of the website, while CSS provides the styling. You can use a text editor to write the code and a web browser to preview your website.',
       userId: 1,
@@ -105,11 +85,15 @@ export class DataService {
     },
   ];
 
+  // Constructor function that injects the AuthService into the component
   constructor(private authService: AuthService) { }
 
   getQuestionById(id: any) {
+    // Retrieve the question with the specified ID from the questions array
     const question: any = this.questions.find((question) => question.id === id);
+    // Retrieve the user associated with the question using the AuthService's getUser() method
     const user: any = this.authService.getUser(question.userId);
+    // Return an object that includes the question details along with the user's name and ID
     return {
       ...question,
       userName: user.name,
@@ -118,49 +102,54 @@ export class DataService {
   }
 
   getQuestions() {
+    // Return an array of questions with additional user details
     return this.questions.map((question: any) => {
+      // For each question, retrieve the user associated with the question using the AuthService's getUser() method
       return {
         ...question,
+        // Return an object that includes the question details along with the user object
         user: this.authService.getUser(question.userId),
       };
     });
   }
 
-
   addQuestion(question: string, userId: number) {
+    // Generate a unique ID for the new question
     const id = this.questions.length + 1;
+    // Add the new question to the questions array
     this.questions.push({ text: question, id, userId });
+    // Return true to indicate that the question was successfully added
     return true;
   }
-
   addAnswer(questionId: number, answer: string, userId: number) {
-    const id = this.answers.length + 1;
-    const upvote = 0;
-    const downvote = 0;
+    const id = this.answers.length + 1; // Generate a unique ID for the new answer
+    const upvote = 0; // Initialize the upvote count to 0
+    const downvote = 0; // Initialize the downvote count to 0
+
     this.answers.push({
-      id,
-      questionId,
-      text: answer,
-      userId,
-      upvote,
-      downvote,
-      comments: [],
+      id, // Assign the generated ID
+      questionId, // Assign the ID of the question the answer belongs to
+      text: answer, // Assign the provided answer text
+      userId, // Assign the ID of the user who posted the answer
+      upvote, // Assign the initial upvote count
+      downvote, // Assign the initial downvote count
+      comments: [], // Initialize an empty array to store comments on the answer
     });
-    return true;
+
+    return true; // Return true to indicate that the answer was successfully added
   }
 
   getAnswersById(questionId?: number) {
     if (!questionId) {
-      return this.answers;
+      return this.answers; // If no questionId is provided, return all answers
     }
 
     return this.answers
-      .filter((answer) => answer.questionId === questionId)
+      .filter((answer) => answer.questionId === questionId) // Filter the answers array to get answers for the specified questionId
       .map((answer: any) => {
         return {
           ...answer,
-          user: this.authService.getUser(answer.userId),
-
+          user: this.authService.getUser(answer.userId), // Retrieve the user associated with the answer using the AuthService's getUser() method
         };
       });
   }
@@ -208,9 +197,7 @@ export class DataService {
     }
   }
 
-
-
-
+  // Delete the answer with the given ID from the answers array
   deleteAnswer(id: number): void {
     const answerIndex = this.answers.findIndex((answer) => answer.id === id);
     if (answerIndex !== -1) {
@@ -218,6 +205,7 @@ export class DataService {
     }
   }
 
+  // Find the answer with the given ID and update its text with the new text
   editAnswer(id: number, newText: string): void {
     const answer = this.answers.find((answer) => answer.id === id);
     if (answer) {
@@ -225,20 +213,24 @@ export class DataService {
     }
   }
 
+  // Delete the question with the given ID from the questions array
   deleteQuestion(id: any): void {
-    const index = this.questions.findIndex(question => question.id === id);
+    const index = this.questions.findIndex((question) => question.id === id);
     if (index !== -1) {
       this.questions.splice(index, 1);
     }
   }
 
+  // Find the question with the given ID and update its text with the new text
   editQuestion(id: any, newText: string): void {
-    const question = this.questions.find(question => question.id === id);
+    const question = this.questions.find((question) => question.id === id);
     if (question) {
       question.text = newText;
     }
   }
 
+  // Find the answer with the given ID, create a new comment, and add it to the answer's comments array
+  // If the comments array doesn't exist, create it before adding the comment
   addComment(answerId: number, commentText: string, userId: number) {
     const commentId = this.generateCommentId();
     const comment = {
@@ -255,9 +247,10 @@ export class DataService {
       answer.comments.push(comment);
     }
 
-    return true;
+    return true; // Return true to indicate that the comment was successfully added
   }
 
+  // Find the answer with the given ID and delete the comment with the given ID from its comments array
   deleteComment(answerId: number, commentId: number) {
     const answer = this.answers.find((a) => a.id === answerId);
     if (answer && answer.comments) {
@@ -268,6 +261,7 @@ export class DataService {
     }
   }
 
+  // Find the answer with the given ID and update the text of the comment with the given ID
   editComment(answerId: number, commentId: number, newText: string): void {
     const answer = this.answers.find((a) => a.id === answerId);
     if (answer && answer.comments) {
@@ -277,10 +271,8 @@ export class DataService {
       }
     }
   }
-
-
+  // Find the maximum comment ID and add 1
   private generateCommentId(): number {
-    // Find the maximum comment ID and add 1
     let maxCommentId = 0;
     this.answers.forEach((answer) => {
       if (answer.comments) {
@@ -293,5 +285,4 @@ export class DataService {
     });
     return maxCommentId + 1;
   }
-
 }
