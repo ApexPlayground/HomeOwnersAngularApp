@@ -1,0 +1,70 @@
+.comments-container {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.comments-header {
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.comment-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.comment-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.comment-item .comment-text {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+.comment-item .delete-button {
+  background-color: transparent;
+  border: none;
+  color: red;
+  cursor: pointer;
+}
+
+.comment-form {
+  margin-top: 10px;
+}
+
+.comment-form input[type="text"] {
+  width: 200px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin-right: 10px;
+  font-size: 14px;
+  color: #333;
+  background-color: #f9f9f9;
+}
+
+.comment-form input[type="text"]:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px #007bff;
+}
+
+.comment-form button {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.comment-form button:hover {
+  background-color: #0056b3;
+}

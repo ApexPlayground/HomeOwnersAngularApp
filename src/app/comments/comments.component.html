@@ -1,16 +1,15 @@
-<!-- <div class="container mt-2">
-    <div class="input-group mb-3">
-        <input type="text" class="form-control pr-1" placeholder="Type your comment" aria-label="Recipient's comment"
-            aria-describedby="button-addon2" [(ngModel)]="newComment" #commentInput>
-        <button class="btn btn-outline-secondary" (click)="addComment(commentInput)" type="button">Add Comment</button>
-    </div>
-</div> -->
-
-<div class="comments-container">
-    <div *ngFor="let comment of comments" class="comment">
-        <p>{{ comment.text }}</p>
-        <p>Posted by: {{ comment.user.name }}</p>
-        <p>Posted on: {{ comment.date | date:'medium' }}</p>
-        <!-- Add more HTML elements to display additional comment information -->
+<div>
+    <h3>Comments</h3>
+    <ul>
+        <li *ngFor="let comment of comments; let i = index">
+            {{ comment }}
+            <button class="btn btn-danger" (click)="deleteComment(i)">
+                Delete
+            </button>
+        </li>
+    </ul>
+    <div>
+        <input type="text" [(ngModel)]="newComment" placeholder="Add a comment">
+        <button class="btn btn-primary" (click)="addComment()">Add Comment</button>
     </div>
 </div>

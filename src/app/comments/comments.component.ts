@@ -1,29 +1,28 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { DataService } from '../data.service';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-comments',
   templateUrl: './comments.component.html',
-  styleUrls: ['./comments.component.css'],
+  styleUrls: ['./comments.component.css']
 })
 export class CommentsComponent implements OnInit {
-  @Input() answerId: number = 0;
-  comments: any[] = [];
+  comments: string[] = []; // Array to store comments
+  newComment: string = ''; // Variable to store the new comment input
 
-  constructor(private dataService: DataService) {}
+  constructor() { }
 
   ngOnInit(): void {
-    this.loadComments();
+    // Initialize the component
   }
 
-  loadComments(): void {
-    this.comments = this.dataService.getCommentsByAnswerId(this.answerId);
-  }
-
-  addComment(commentInput: HTMLInputElement) {
-    const commentText = commentInput.value.trim();
-    if (!commentText) {
-      return;
+  addComment() {
+    if (this.newComment.trim() !== '') {
+      this.comments.push(this.newComment); // Add the new comment to the array
+      this.newComment = ''; // Clear the input field
     }
+  }
+
+  deleteComment(index: number) {
+    this.comments.splice(index, 1); // Remove the comment at the specified index
   }
 }
