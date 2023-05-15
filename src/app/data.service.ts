@@ -76,26 +76,7 @@ export class DataService {
       ],
     },
     {
-      id: 1,
-      questionId: 5,
-      text: 'Git allows you to track changes, collaborate with others, and easily revert to previous versions.',
-      userId: 3,
-      upvote: 10,
-      downvote: 0,
-      comments: []
-
-    },
-    {
-      id: 2,
-      questionId: 5,
-      text: 'Git is a powerful tool for version control, enabling you to work with others and manage complex projects.',
-      userId: 1,
-      upvote: 8,
-      downvote: 0,
-      comments: [],
-    },
-    {
-      id: 2,
+      id: 4,
       questionId: 3,
       text: 'To code a basic website using HTML and CSS, you first need to learn the basics of HTML and CSS. HTML provides the structure of the website, while CSS provides the styling. You can use a text editor to write the code and a web browser to preview your website.',
       userId: 1,
@@ -103,6 +84,7 @@ export class DataService {
       downvote: 0,
       comments: [],
     },
+
   ];
 
   constructor(private authService: AuthService) { }
