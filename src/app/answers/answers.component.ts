@@ -101,6 +101,7 @@ export class AnswersComponent implements OnInit {
         if (result.isConfirmed) {
           const newText = result.value;
           this.dataService.editAnswer(id, newText);
+          Swal.fire('Answer edited!', '', 'success');
           const navigationExtras: NavigationExtras = {
             queryParams: { refresh: true },
           };
