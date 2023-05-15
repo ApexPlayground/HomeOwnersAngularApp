@@ -52,6 +52,7 @@ export class QuestionsComponent implements OnInit {
       this.questions.splice(questionIndex, 1);
       this.dataService.deleteQuestion(id);
       this.router.navigate([], { queryParams: { refresh: true } });
+      Swal.fire('Question deleted!', '', 'success');
     }
   }
 
@@ -75,6 +76,7 @@ export class QuestionsComponent implements OnInit {
           this.items[questionIndex] = newQuestionText;
           this.dataService.editQuestion(id, newQuestionText);
           this.router.navigate([], { queryParams: { refresh: true } });
+          Swal.fire('Question edited', '', 'success');
         }
       });
     }
