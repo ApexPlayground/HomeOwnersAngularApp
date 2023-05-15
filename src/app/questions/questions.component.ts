@@ -41,6 +41,10 @@ export class QuestionsComponent implements OnInit {
     this.router.navigate(['/answers', 'question', question.id]);
   }
 
+  navigateToAnswerId(id: any) {
+    this.router.navigate(['/answers', 'question', id]);
+  }
+
   deleteQuestion(id: any) {
     const questionIndex = this.questions.findIndex((q: Question) => q.id === id);
     if (questionIndex !== -1) {
