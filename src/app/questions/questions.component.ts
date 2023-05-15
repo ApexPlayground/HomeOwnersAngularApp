@@ -15,6 +15,9 @@ import Swal from 'sweetalert2';
 })
 export class QuestionsComponent implements OnInit {
   questions: any;
+  searchTerm: string = "";
+  items = ['How to ride a bike?', 'How to play a guitar?', 'How to code a basic website using HTML and CSS?', 'What are the key differences between Python and Java, and when should you use each one?', 'How can you use Git to manage your code changes and collaborate with others?'];
+  filteredItems: string[] = [];
 
   constructor(private dataService: DataService, private router: Router, public authService: AuthService) { }
 
@@ -29,6 +32,7 @@ export class QuestionsComponent implements OnInit {
     }
 
     this.dataService.addQuestion(question.value, this.authService.currentLoggedInUser.id);
+    this.items.push(question.value);
     question.value = '';
     this.questions = this.dataService.getQuestions();
   }
@@ -69,6 +73,13 @@ export class QuestionsComponent implements OnInit {
       });
     }
     this.editedQuestionId = null; // Reset the editedQuestionId
+  }
+
+  searchItems() {
+    this.filteredItems = this.items.filter(item =>
+      item.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+    return this.filteredItems;
   }
 
   editedQuestionId: number | null = null;

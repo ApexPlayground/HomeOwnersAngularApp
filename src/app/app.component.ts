@@ -1,19 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
-import { filterItems } from '../assets/search-function';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
+searchClose() {
+throw new Error('Method not implemented.');
+}
   title = 'AskMe';
   user: any;
   searchTerm: string = "";
   items = ['How to ride a bike', 'How to play a guitar'];
   filteredItems: string[] = [];
+toggleSearch: any;
+searchText: any;
 
   constructor(public authService: AuthService, private router: Router) { }
 
@@ -36,9 +40,11 @@ export class AppComponent implements OnInit {
   }
 
   searchItems() {
-    this.filteredItems = filterItems(this.items, this.searchTerm);
+    this.filteredItems = this.items.filter(item =>
+      item.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+    return this.filteredItems;
   }
-
 
 
 
