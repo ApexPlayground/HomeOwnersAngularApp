@@ -16,7 +16,7 @@
 
     1.Front-end Framework: Angular
     2.Back-end Framework: Node.js
-    3.Database: This app doesn't use any database instead uses in-momory objects so when you will refresh the app the data will be lost.
+    3.Database: This app doesn't use any database instead uses in-momory objects so when you refresh the app, the data will be lost.
     4.CSS Framework: Bootstrap
    
 
