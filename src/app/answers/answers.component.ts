@@ -115,4 +115,7 @@ export class AnswersComponent implements OnInit {
   }
 
   editedAnswerId: number | null = null;
+
+  //admin user
+  isAdminUser = this.authService.currentLoggedInAdmin;
 }
