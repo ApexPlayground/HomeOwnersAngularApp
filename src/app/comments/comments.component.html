@@ -1,15 +1,22 @@
-<div>
+<div class="comments-section">
     <h3>Comments</h3>
-    <ul>
-        <li *ngFor="let comment of comments; let i = index">
-            {{ comment }}
-            <button class="btn btn-danger" (click)="deleteComment(i)">
-                Delete
-            </button>
+
+    <div class="add-comment">
+        <input type="text" [(ngModel)]="newComment" placeholder="Add a comment" class="comment-input">
+        <button class="add-button" (click)="addComment()">Add Comment</button>
+    </div>
+
+    <ul class="comment-list">
+        <li *ngFor="let comment of comments.slice(); let i = index" class="comment-item">
+            <span class="comment-text">{{ comment }}</span>
+            <div class="comment-buttons">
+                <button class="edit-button" (click)="editComment(i, newText)">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <button class="delete-button" (click)="deleteComment(i)">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
         </li>
     </ul>
-    <div>
-        <input type="text" [(ngModel)]="newComment" placeholder="Add a comment">
-        <button class="btn btn-primary" (click)="addComment()">Add Comment</button>
-    </div>
 </div>

@@ -36,8 +36,8 @@ export class AuthService {
       name: 'div',
       email: 'a@a.com',
       password: 'admin',
-      expert: true,
-      isAdminUser: true
+      isAdminUser: true,
+      expert: true
     }
   ]
 

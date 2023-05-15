@@ -117,6 +117,7 @@ export class DataService {
     });
   }
 
+
   addQuestion(question: string, userId: number) {
     const id = this.questions.length + 1;
     this.questions.push({ text: question, id, userId });
@@ -257,6 +258,17 @@ export class DataService {
       }
     }
   }
+
+  editComment(answerId: number, commentId: number, newText: string): void {
+    const answer = this.answers.find((a) => a.id === answerId);
+    if (answer && answer.comments) {
+      const commentIndex = answer.comments.findIndex((c) => c.id === commentId);
+      if (commentIndex !== -1) {
+        answer.comments[commentIndex].text = newText;
+      }
+    }
+  }
+
 
   private generateCommentId(): number {
     // Find the maximum comment ID and add 1

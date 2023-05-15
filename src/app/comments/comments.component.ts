@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-comments',
@@ -24,5 +25,30 @@ export class CommentsComponent implements OnInit {
 
   deleteComment(index: number) {
     this.comments.splice(index, 1); // Remove the comment at the specified index
+  }
+
+  newText: string = " "
+
+
+  editComment(index: number, newText: string) {
+    Swal.fire({
+      title: 'Edit Comment',
+      input: 'text',
+      inputValue: newText,
+      showCancelButton: true,
+      confirmButtonText: 'Save',
+      cancelButtonText: 'Cancel',
+      inputValidator: (value) => {
+        if (!value || value.trim() === '') {
+          return 'Please enter a comment';
+        }
+        return null; // Return null to indicate a valid input
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.comments[index] = result.value;
+        Swal.fire('Comment Updated!', '', 'success');
+      }
+    });
   }
 }
