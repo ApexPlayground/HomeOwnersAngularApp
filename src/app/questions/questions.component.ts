@@ -44,6 +44,7 @@ export class QuestionsComponent implements OnInit {
   deleteQuestion(id: any) {
     const questionIndex = this.questions.findIndex((q: Question) => q.id === id);
     if (questionIndex !== -1) {
+      this.items.splice(questionIndex, 1);
       this.questions.splice(questionIndex, 1);
       this.dataService.deleteQuestion(id);
       this.router.navigate([], { queryParams: { refresh: true } });
@@ -67,6 +68,7 @@ export class QuestionsComponent implements OnInit {
         if (result.isConfirmed && result.value !== '') {
           const newQuestionText = result.value;
           this.questions[questionIndex].text = newQuestionText;
+          this.items[questionIndex] = newQuestionText;
           this.dataService.editQuestion(id, newQuestionText);
           this.router.navigate([], { queryParams: { refresh: true } });
         }
