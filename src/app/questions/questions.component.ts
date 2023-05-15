@@ -73,4 +73,7 @@ export class QuestionsComponent implements OnInit {
 
   editedQuestionId: number | null = null;
 
+  //admin user
+  isAdminUser = this.authService.currentLoggedInAdmin;
+
 }  

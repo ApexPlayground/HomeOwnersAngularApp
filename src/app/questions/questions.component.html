@@ -16,7 +16,7 @@
                     <div class="d-flex w-100 justify-content-between">
                         <p class="mb-1">{{question.text}}</p>
                         <small class="text-muted">~ {{ question.user.name }}</small>
-                        <div class="d-flex align-items-center">
+                        <div class="d-flex align-items-center" *ngIf="isAdminUser">
                             <button class="btn btn-primary mx-1"
                                 (click)="editQuestion(question.id, newText); $event.stopPropagation()">
                                 <i class="fas fa-edit"></i>
@@ -26,6 +26,7 @@
                                 <i class="fas fa-trash"></i>
                             </button>
                         </div>
+
                     </div>
                 </li>
             </ul>
